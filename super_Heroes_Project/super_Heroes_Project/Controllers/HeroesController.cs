@@ -17,7 +17,9 @@ namespace super_Heroes_Project.Controllers
         // GET: Heroes
         public ActionResult Index()
         {
-            return View();
+            List<Heroes> heroList = context.SuperHeroes.ToList();
+            
+            return View(heroList);
         }
 
         // GET: Heroes/Details/5
@@ -92,7 +94,6 @@ namespace super_Heroes_Project.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
                 var heroToDelete = context.SuperHeroes.Where(h => h.Id == hero.Id).Single();
                 context.SuperHeroes.Remove(heroToDelete);
                 context.SaveChanges();
@@ -100,7 +101,7 @@ namespace super_Heroes_Project.Controllers
             }
             catch
             {
-                return View();
+                return View("Index", "Home");
             }
         }
     }

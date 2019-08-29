@@ -10,7 +10,9 @@ namespace super_Heroes_Project.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Real Name")]
         public string RealName { get; set; }
+        [Display(Name = "Alter Ego")]
         public string AlterEgo { get; set; }
         public string PrimaryAbility { get; set; }
         public string SecondaryAbility { get; set; }
