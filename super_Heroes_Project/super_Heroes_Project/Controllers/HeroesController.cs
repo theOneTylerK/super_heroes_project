@@ -42,7 +42,7 @@ namespace super_Heroes_Project.Controllers
                 // TODO: Add insert logic here
                 context.SuperHeroes.Add(hero);
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
@@ -53,17 +53,24 @@ namespace super_Heroes_Project.Controllers
         // GET: Heroes/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var hero = context.SuperHeroes.Where(h => h.Id == id).Single();
+            return View(hero);
         }
 
         // POST: Heroes/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Heroes hero)
         {
             try
             {
                 // TODO: Add update logic here
-                
+                var heroToEdit = context.SuperHeroes.Where(h => h.Id == hero.Id).Single();
+                heroToEdit.RealName = hero.RealName;
+                heroToEdit.AlterEgo = hero.AlterEgo;
+                heroToEdit.PrimaryAbility = hero.PrimaryAbility;
+                heroToEdit.SecondaryAbility = hero.SecondaryAbility;
+                heroToEdit.Catchphrase = hero.Catchphrase;
+                context.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
             catch
