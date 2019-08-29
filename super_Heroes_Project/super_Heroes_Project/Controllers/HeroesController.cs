@@ -1,4 +1,5 @@
-﻿using System;
+﻿using super_Heroes_Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,11 @@ namespace super_Heroes_Project.Controllers
 {
     public class HeroesController : Controller
     {
+        ApplicationDbContext context;
+        public HeroesController()
+        {
+            context = new ApplicationDbContext();
+        }
         // GET: Heroes
         public ActionResult Index()
         {
@@ -23,17 +29,19 @@ namespace super_Heroes_Project.Controllers
         // GET: Heroes/Create
         public ActionResult Create()
         {
-            return View();
+            Heroes hero = new Heroes();
+            return View(hero);
         }
 
         // POST: Heroes/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Heroes hero)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                context.SuperHeroes.Add(hero);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -55,8 +63,8 @@ namespace super_Heroes_Project.Controllers
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
@@ -67,17 +75,20 @@ namespace super_Heroes_Project.Controllers
         // GET: Heroes/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var hero = context.SuperHeroes.Where(h => h.Id == id).Single();
+            return View(hero);
         }
 
         // POST: Heroes/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Heroes hero)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                var heroToDelete = context.SuperHeroes.Where(h => h.Id == hero.Id).Single();
+                context.SuperHeroes.Remove(heroToDelete);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
