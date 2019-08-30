@@ -28,6 +28,12 @@ namespace super_Heroes_Project.Controllers
             Heroes hero = context.SuperHeroes.Where(h => h.Id == id).Single();
             return View(hero);
         }
+        [HttpPost]
+        public ActionResult Details(Heroes hero)
+        {
+            Heroes heroToDisplay = context.SuperHeroes.Where(h => h.Id == hero.Id).Single();
+            return RedirectToAction("Details", "Heroes");
+        }
 
         // GET: Heroes/Create
         public ActionResult Create()
