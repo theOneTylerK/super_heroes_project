@@ -10,6 +10,7 @@ namespace super_Heroes_Project.Controllers
     {
         public ActionResult Index()
         {
+          
             return View();
         }
 
