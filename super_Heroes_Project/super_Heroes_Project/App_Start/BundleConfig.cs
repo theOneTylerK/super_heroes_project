@@ -23,7 +23,8 @@ namespace super_Heroes_Project
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/bootstrap-superhero.css",
                       "~/Content/site.css"));
         }
     }
